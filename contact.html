@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Jemilyyy – ติดต่อ</title>
+  <link rel="stylesheet" href="src/style.css" />
+  <style>
+    .page-hero {
+      padding: 120px 80px 60px;
+      background:
+        radial-gradient(ellipse 60% 80% at 50% 0%, rgba(90,30,120,0.3) 0%, transparent 60%),
+        var(--bg-deep);
+      text-align: center;
+    }
+
+    .page-hero h1 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 3.5rem;
+      letter-spacing: 5px;
+      background: var(--accent-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .page-hero p { color: var(--text-muted); margin-top: 12px; }
+
+    /* === CONTACT LAYOUT === */
+    .contact-section {
+      padding: 80px;
+      display: grid;
+      grid-template-columns: 1fr 1.4fr;
+      gap: 60px;
+      align-items: start;
+    }
+
+    /* === CONTACT INFO === */
+    .contact-info h2 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 2rem;
+      letter-spacing: 3px;
+      margin-bottom: 12px;
+    }
+
+    .contact-info > p {
+      color: var(--text-muted);
+      line-height: 1.8;
+      margin-bottom: 40px;
+      font-size: 0.95rem;
+    }
+
+    .info-items {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      margin-bottom: 40px;
+    }
+
+    .info-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      padding: 20px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      transition: border-color 0.2s;
+    }
+
+    .info-item:hover {
+      border-color: rgba(168,85,247,0.4);
+    }
+
+    .info-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-size: 1.2rem;
+    }
+
+    .icon-line { background: rgba(0,200,80,0.15); }
+    .icon-ig { background: rgba(255,77,141,0.15); }
+    .icon-fb { background: rgba(79,195,247,0.15); }
+    .icon-email { background: rgba(168,85,247,0.15); }
+
+    .info-item-content h4 {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 0.8rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+
+    .info-item-content p {
+      font-size: 0.95rem;
+      color: var(--text-primary);
+      font-weight: 500;
+    }
+
+    .info-item-content span {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    /* === HOURS === */
+    .hours-box {
+      padding: 20px;
+      background: linear-gradient(135deg, rgba(168,85,247,0.08), rgba(79,195,247,0.05));
+      border: 1px solid rgba(168,85,247,0.2);
+      border-radius: 14px;
+    }
+
+    .hours-box h4 {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 0.8rem;
+      letter-spacing: 2px;
+      color: var(--accent-purple);
+      font-weight: 700;
+      text-transform: uppercase;
+      margin-bottom: 14px;
+    }
+
+    .hours-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 8px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.9rem;
+    }
+
+    .hours-row:last-child { border-bottom: none; }
+    .hours-row .day { color: var(--text-muted); }
+    .hours-row .time { color: var(--text-primary); font-weight: 500; }
+    .hours-row .time.open { color: var(--accent-blue); }
+
+    /* === FORM === */
+    .contact-form {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 40px;
+    }
+
+    .contact-form h3 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.6rem;
+      letter-spacing: 3px;
+      margin-bottom: 4px;
+    }
+
+    .contact-form > p {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      margin-bottom: 28px;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 0.8rem;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      font-weight: 700;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      padding: 12px 16px;
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      color: var(--text-primary);
+      font-family: 'Noto Sans Thai', sans-serif;
+      font-size: 0.9rem;
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      resize: none;
+    }
+
+    .form-group input::placeholder,
+    .form-group textarea::placeholder {
+      color: var(--text-muted);
+    }
+
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      border-color: var(--accent-purple);
+      box-shadow: 0 0 0 3px rgba(168,85,247,0.12);
+    }
+
+    .form-group select {
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%238b82b8' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14L2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 14px center;
+      padding-right: 40px;
+    }
+
+    .form-group select option {
+      background: var(--bg-surface);
+      color: var(--text-primary);
+    }
+
+    /* === ALBUM PICKER === */
+    .album-picker {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-bottom: 4px;
+    }
+
+    .album-pick {
+      padding: 10px 8px;
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      font-family: 'Noto Sans Thai', sans-serif;
+      cursor: pointer;
+      text-align: center;
+      transition: all 0.2s;
+    }
+
+    .album-pick:hover {
+      border-color: var(--accent-purple);
+      color: var(--text-primary);
+      background: rgba(168,85,247,0.08);
+    }
+
+    .album-pick.selected {
+      border-color: var(--accent-pink);
+      color: var(--accent-pink);
+      background: rgba(255,77,141,0.08);
+    }
+
+    .submit-btn {
+      width: 100%;
+      padding: 14px;
+      background: linear-gradient(135deg, #ff4d8d, #a855f7);
+      color: white;
+      border: none;
+      border-radius: 12px;
+      font-family: 'Noto Sans Thai', sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: opacity 0.2s, transform 0.2s;
+      box-shadow: 0 4px 20px var(--glow-pink);
+      margin-top: 8px;
+    }
+
+    .submit-btn:hover {
+      opacity: 0.9;
+      transform: translateY(-1px);
+    }
+
+    .form-note {
+      text-align: center;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-top: 14px;
+    }
+
+    /* === SUCCESS MESSAGE === */
+    .success-msg {
+      display: none;
+      text-align: center;
+      padding: 32px;
+    }
+
+    .success-msg.show { display: block; }
+
+    .success-msg .emoji {
+      font-size: 3rem;
+      margin-bottom: 16px;
+    }
+
+    .success-msg h4 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.5rem;
+      letter-spacing: 2px;
+      color: var(--accent-pink);
+      margin-bottom: 8px;
+    }
+
+    .success-msg p { color: var(--text-muted); font-size: 0.9rem; }
+
+    @media (max-width: 1100px) {
+      .contact-section { padding: 60px 40px; grid-template-columns: 1fr; gap: 40px; }
+    }
+
+    @media (max-width: 768px) {
+      .page-hero { padding: 180px 24px 40px; }
+      .contact-section { padding: 40px 24px; }
+      .contact-form { padding: 28px 20px; }
+      .form-row { grid-template-columns: 1fr; }
+      .album-picker { grid-template-columns: repeat(2, 1fr); }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="index.html" class="nav-logo">
+      <span class="brand">Jemilyyy</span>
+      <span class="sub">K-Pop ALBUM SHOP</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html">หน้าแรก</a></li>
+      <li><a href="products.html">สินค้า</a></li>
+      <li><a href="artists.html">ศิลปิน</a></li>
+      <li><a href="contact.html" class="active">ติดต่อ</a></li>
+    </ul>
+    <div class="nav-cart">
+      <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+        <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4zM3 6h18M16 10a4 4 0 01-8 0"/>
+      </svg>
+      <span class="cart-badge">0</span>
+    </div>
+  </nav>
+
+  <div class="page-hero">
+    <h1>ติดต่อเรา</h1>
+    <p>สั่งซื้ออัลบั้ม สอบถามสินค้า หรือแจ้งปัญหาการสั่งซื้อ</p>
+  </div>
+
+  <section class="contact-section">
+
+    <!-- INFO SIDE -->
+    <div class="contact-info">
+      <h2>พร้อมให้บริการ<br>ทุกวัน</h2>
+      <p>ติดต่อเราผ่านช่องทางที่สะดวกสำหรับคุณ ทีมงานพร้อมตอบคำถามและช่วยเหลือการสั่งซื้ออย่างรวดเร็ว</p>
+
+      <div class="info-items">
+        <div class="info-item">
+          <div class="info-icon icon-line">💬</div>
+          <div class="info-item-content">
+            <h4>LINE Official</h4>
+            <p>@Jemilyyy</p>
+            <span>ตอบรวดเร็วที่สุด</span>
+          </div>
+        </div>
+        <div class="info-item">
+          <div class="info-icon icon-ig">📸</div>
+          <div class="info-item-content">
+            <h4>Instagram</h4>
+            <p>@Jemilyyy.kalbum</p>
+            <span>อัปเดตสินค้าใหม่ทุกวัน</span>
+          </div>
+        </div>
+        <div class="info-item">
+          <div class="info-icon icon-fb">📘</div>
+          <div class="info-item-content">
+            <h4>Facebook</h4>
+            <p>Jemilyyy K-Album Shop</p>
+            <span>Community & ข่าวสาร</span>
+          </div>
+        </div>
+        <div class="info-item">
+          <div class="info-icon icon-email">📧</div>
+          <div class="info-item-content">
+            <h4>Email</h4>
+            <p>hello@Jemilyyy.com</p>
+            <span>สำหรับการสั่งซื้อจำนวนมาก</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="hours-box">
+        <h4>เวลาทำการ</h4>
+        <div class="hours-row">
+          <span class="day">จันทร์ – ศุกร์</span>
+          <span class="time open">09:00 – 20:00 น.</span>
+        </div>
+        <div class="hours-row">
+          <span class="day">เสาร์ – อาทิตย์</span>
+          <span class="time open">10:00 – 18:00 น.</span>
+        </div>
+        <div class="hours-row">
+          <span class="day">วันหยุดนักขัตฤกษ์</span>
+          <span class="time">ปิดบริการ</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- FORM SIDE -->
+    <div class="contact-form" id="contactForm">
+      <h3>ส่งข้อความสั่งซื้อ</h3>
+      <p>กรอกข้อมูลด้านล่าง ทีมงานจะติดต่อกลับภายใน 1 ชั่วโมง</p>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label>ชื่อ</label>
+          <input type="text" id="fname" placeholder="ชื่อของคุณ" />
+        </div>
+        <div class="form-group">
+          <label>นามสกุล</label>
+          <input type="text" id="lname" placeholder="นามสกุล" />
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>เบอร์โทรศัพท์</label>
+        <input type="tel" id="phone" placeholder="0XX-XXX-XXXX" />
+      </div>
+
+      <div class="form-group">
+        <label>ช่องทางติดต่อกลับ</label>
+        <select id="channel">
+          <option value="">เลือกช่องทาง...</option>
+          <option value="line">LINE</option>
+          <option value="phone">โทรศัพท์</option>
+          <option value="ig">Instagram DM</option>
+          <option value="email">Email</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>เลือกอัลบั้มที่สนใจ</label>
+        <div class="album-picker">
+          <div class="album-pick" onclick="togglePick(this)">BTS – WINGS</div>
+          <div class="album-pick" onclick="togglePick(this)">BP – BORN PINK</div>
+          <div class="album-pick" onclick="togglePick(this)">NJ – Get Up</div>
+          <div class="album-pick" onclick="togglePick(this)">aespa – MY WORLD</div>
+          <div class="album-pick" onclick="togglePick(this)">LS – UNFORGIVEN</div>
+          <div class="album-pick" onclick="togglePick(this)">SVT – FACE THE SUN</div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>ข้อความเพิ่มเติม</label>
+        <textarea id="message" rows="4" placeholder="ระบุรุ่นอัลบั้ม จำนวน หรือข้อความอื่นๆ..."></textarea>
+      </div>
+
+      <button class="submit-btn" onclick="submitForm()">📦 ส่งคำสั่งซื้อ</button>
+      <p class="form-note">ฟรีค่าจัดส่ง เมื่อสั่งซื้อ ฿ 1,500 ขึ้นไป 🎁</p>
+    </div>
+
+    <!-- SUCCESS STATE (hidden) -->
+    <div class="success-msg" id="successMsg">
+      <div class="emoji">🎉</div>
+      <h4>ส่งข้อความเรียบร้อย!</h4>
+      <p>ทีมงานจะติดต่อกลับภายใน 1 ชั่วโมง<br>ขอบคุณที่เลือกช้อปกับ HANEUL!</p>
+      <br>
+      <a href="products.html" class="btn-primary" style="margin:0 auto; display:inline-flex">ดูสินค้าเพิ่มเติม →</a>
+    </div>
+
+  </section>
+
+  <!-- FAQ -->
+  <section style="padding: 0 80px 100px;">
+    <div class="section-header">
+      <span class="section-tag">— FAQ —</span>
+      <h2 class="section-title">คำถามที่พบบ่อย</h2>
+    </div>
+
+    <div style="display:grid; grid-template-columns: repeat(2, 1fr); gap: 16px; max-width: 900px; margin: 0 auto;">
+
+      <div style="padding:24px; background:var(--bg-card); border:1px solid var(--border); border-radius:14px;">
+        <div style="font-family:'Rajdhani',sans-serif; font-size:0.8rem; letter-spacing:2px; color:var(--accent-pink); font-weight:700; margin-bottom:8px;">จัดส่งกี่วัน?</div>
+        <p style="color:var(--text-muted); font-size:0.9rem; line-height:1.7;">จัดส่ง 1-3 วันทำการภายในประเทศไทย สินค้า Pre-order รอ 3-4 สัปดาห์หลังวางขายในเกาหลี</p>
+      </div>
+
+      <div style="padding:24px; background:var(--bg-card); border:1px solid var(--border); border-radius:14px;">
+        <div style="font-family:'Rajdhani',sans-serif; font-size:0.8rem; letter-spacing:2px; color:var(--accent-purple); font-weight:700; margin-bottom:8px;">ของแท้หรือเปล่า?</div>
+        <p style="color:var(--text-muted); font-size:0.9rem; line-height:1.7;">ของแท้ 100% นำเข้าตรงจากเกาหลี มีใบรับประกัน และรับคืนสินค้าหากพบปัญหา</p>
+      </div>
+
+      <div style="padding:24px; background:var(--bg-card); border:1px solid var(--border); border-radius:14px;">
+        <div style="font-family:'Rajdhani',sans-serif; font-size:0.8rem; letter-spacing:2px; color:var(--accent-blue); font-weight:700; margin-bottom:8px;">ชำระเงินผ่านช่องทางไหน?</div>
+        <p style="color:var(--text-muted); font-size:0.9rem; line-height:1.7;">รับโอนผ่านธนาคาร, PromptPay, TrueMoney Wallet และ COD (เก็บเงินปลายทาง)</p>
+      </div>
+
+      <div style="padding:24px; background:var(--bg-card); border:1px solid var(--border); border-radius:14px;">
+        <div style="font-family:'Rajdhani',sans-serif; font-size:0.8rem; letter-spacing:2px; color:var(--accent-pink); font-weight:700; margin-bottom:8px;">มีส่วนลดสมาชิกไหม?</div>
+        <p style="color:var(--text-muted); font-size:0.9rem; line-height:1.7;">มีโปรแกรมสะสมคะแนน ซื้อครบ ฿3,000 รับส่วนลด 5% สำหรับการสั่งซื้อครั้งถัดไป</p>
+      </div>
+
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="brand">Jemilyyy</div>
+        <p>ร้านอัลบั้มเกาหลีคุณภาพแท้<br>นำเข้าตรงจากเกาหลี ครบทุกศิลปิน</p>
+      </div>
+      <div class="footer-col">
+        <h4>เมนู</h4>
+        <ul>
+          <li><a href="index.html">หน้าแรก</a></li>
+          <li><a href="products.html">สินค้า</a></li>
+          <li><a href="artists.html">ศิลปิน</a></li>
+          <li><a href="contact.html">ติดต่อ</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>ศิลปิน</h4>
+        <ul>
+          <li><a href="artists.html">BTS</a></li>
+          <li><a href="artists.html">BLACKPINK</a></li>
+          <li><a href="artists.html">NewJeans</a></li>
+          <li><a href="artists.html">aespa</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>ติดต่อ</h4>
+        <ul>
+          <li><a href="#">Line: @Jemilyyy</a></li>
+          <li><a href="#">Instagram</a></li>
+          <li><a href="contact.html">ส่งข้อความ</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 Jemilyyy K-Pop Album Shop · All rights reserved</p>
+    </div>
+  </footer>
+
+  <script>
+    function togglePick(el) {
+      el.classList.toggle('selected');
+    }
+
+    function submitForm() {
+      const fname = document.getElementById('fname').value.trim();
+      const phone = document.getElementById('phone').value.trim();
+      if (!fname || !phone) {
+        alert('กรุณากรอกชื่อและเบอร์โทรศัพท์');
+        return;
+      }
+      document.getElementById('contactForm').style.display = 'none';
+      document.getElementById('successMsg').classList.add('show');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    @media (max-width:768px) {
+      section[style] { padding: 0 24px 60px !important; }
+    }
+  </script>
+
+</body>
+</html>

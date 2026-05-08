@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Jemilyyy – ศิลปิน</title>
+  <link rel="stylesheet" href="src/style.css" />
+  <style>
+    .page-hero {
+      padding: 120px 80px 60px;
+      background:
+        radial-gradient(ellipse 60% 80% at 50% 0%, rgba(90,30,120,0.3) 0%, transparent 60%),
+        var(--bg-deep);
+      text-align: center;
+    }
+
+    .page-hero h1 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 3.5rem;
+      letter-spacing: 5px;
+      background: var(--accent-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .page-hero p {
+      color: var(--text-muted);
+      margin-top: 12px;
+    }
+
+    /* === ARTIST CARDS === */
+    .artists-section {
+      padding: 80px;
+    }
+
+    .artists-grid-main {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+    }
+
+    .artist-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      overflow: hidden;
+      transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+      cursor: pointer;
+    }
+
+    .artist-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 24px 60px rgba(168,85,247,0.25);
+      border-color: rgba(168,85,247,0.5);
+    }
+
+    .artist-banner {
+      height: 180px;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .artist-banner::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom, transparent 40%, var(--bg-card) 100%);
+    }
+
+    .artist-avatar {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.8rem;
+      letter-spacing: 2px;
+      color: white;
+      position: relative;
+      z-index: 1;
+      border: 3px solid rgba(255,255,255,0.2);
+      box-shadow: 0 0 30px rgba(0,0,0,0.5);
+    }
+
+    .artist-body {
+      padding: 20px 24px 24px;
+    }
+
+    .artist-name {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.8rem;
+      letter-spacing: 3px;
+      margin-bottom: 4px;
+    }
+
+    .artist-label {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 0.75rem;
+      letter-spacing: 2px;
+      color: var(--text-muted);
+      font-weight: 700;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+
+    .artist-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 16px;
+    }
+
+    .artist-tag {
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      background: rgba(168,85,247,0.1);
+      border: 1px solid rgba(168,85,247,0.25);
+      color: var(--accent-purple);
+    }
+
+    .artist-stats {
+      display: flex;
+      gap: 24px;
+      padding-top: 16px;
+      border-top: 1px solid var(--border);
+    }
+
+    .artist-stat-item {
+      text-align: center;
+    }
+
+    .artist-stat-num {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 1.2rem;
+      font-weight: 700;
+      background: var(--accent-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .artist-stat-label {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+
+    .artist-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 0.85rem;
+      letter-spacing: 1px;
+      font-weight: 700;
+      color: var(--accent-purple);
+      text-decoration: none;
+      transition: gap 0.2s;
+    }
+
+    .artist-link:hover { gap: 10px; }
+
+    /* === BANNER COLORS === */
+    .banner-bts { background: linear-gradient(135deg, #1e1b4b, #4338ca); }
+    .banner-bp { background: linear-gradient(135deg, #500724, #be123c); }
+    .banner-nj { background: linear-gradient(135deg, #064e3b, #059669); }
+    .banner-aespa { background: linear-gradient(135deg, #4c0519, #9f1239, #7c3aed); }
+    .banner-lsf { background: linear-gradient(135deg, #451a03, #b45309); }
+    .banner-svt { background: linear-gradient(135deg, #0c4a6e, #0284c7); }
+
+    .avatar-bts { background: linear-gradient(135deg, #6366f1, #8b5cf6); }
+    .avatar-bp { background: linear-gradient(135deg, var(--accent-pink), #ec4899); }
+    .avatar-nj { background: linear-gradient(135deg, #10b981, #34d399); }
+    .avatar-aespa { background: linear-gradient(135deg, #f97316, var(--accent-purple)); }
+    .avatar-lsf { background: linear-gradient(135deg, #f59e0b, #f97316); }
+    .avatar-svt { background: linear-gradient(135deg, #38bdf8, #0ea5e9); }
+
+    @media (max-width: 1100px) {
+      .artists-section { padding: 60px 40px; }
+      .artists-grid-main { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 768px) {
+      .page-hero {padding: 180px 24px 40px;}
+      .artists-section { padding: 40px 24px; }
+      .artists-grid-main { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="index.html" class="nav-logo">
+      <span class="brand">Jemilyyy</span>
+      <span class="sub">K-Pop ALBUM SHOP</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html">หน้าแรก</a></li>
+      <li><a href="products.html">สินค้า</a></li>
+      <li><a href="artists.html" class="active">ศิลปิน</a></li>
+      <li><a href="contact.html">ติดต่อ</a></li>
+    </ul>
+    <div class="nav-cart">
+      <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+        <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4zM3 6h18M16 10a4 4 0 01-8 0"/>
+      </svg>
+      <span class="cart-badge">0</span>
+    </div>
+  </nav>
+
+  <div class="page-hero">
+    <h1>ศิลปินทั้งหมด</h1>
+    <p>เลือกดูอัลบั้มตามศิลปินที่คุณชื่นชอบ</p>
+  </div>
+
+  <section class="artists-section">
+    <div class="section-header">
+      <span class="section-tag">— ALL ARTISTS —</span>
+      <h2 class="section-title">ครบทุกศิลปิน</h2>
+      <p class="section-desc">อัลบั้มแท้จากเกาหลีครบทุกรุ่น ทั้ง 1st Gen, 2nd Gen, 3rd Gen และ 4th Gen</p>
+    </div>
+
+    <div class="artists-grid-main">
+
+      <!-- BTS -->
+      <div class="artist-card">
+        <div class="artist-banner banner-bts">
+          <div class="artist-avatar avatar-bts">BTS</div>
+        </div>
+        <div class="artist-body">
+          <div class="artist-name" style="color:#818cf8">BTS</div>
+          <div class="artist-label">BIGHIT MUSIC · 2013</div>
+          <div class="artist-tags">
+            <span class="artist-tag">K-POP</span>
+            <span class="artist-tag">4th Gen</span>
+            <span class="artist-tag">7 Members</span>
+          </div>
+          <div class="artist-stats">
+            <div class="artist-stat-item">
+              <div class="artist-stat-num">48+</div>
+              <div class="artist-stat-label">อัลบั้ม</div>
+            </div>
+            <div class="artist-stat-item">
+              <div class="artist-stat-num">120+</div>
+              <div class="artist-stat-label">รายการ</div>
+            </div>
+            <div class="artist-stat-item" style="margin-left:auto">
+              <a href="products.html" class="artist-link">ดูอัลบั้ม →</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- BLACKPINK -->
+      <div class="artist-card">
+        <div class="artist-banner banner-bp">
+          <div class="artist-avatar avatar-bp">BP</div>
+        </div>
+        <div class="artist-body">
+          <div class="artist-name" style="color:var(--accent-pink)">BLACKPINK</div>
+          <div class="artist-label">YG ENTERTAINMENT · 2016</div>
+          <div class="artist-tags">
+            <span class="artist-tag">K-POP</span>
+            <span class="artist-tag">3rd Gen</span>
+            <span class="artist-tag">4 Members</span>
+          </div>
+          <div class="artist-stats">
+            <div class="artist-stat-item">
+              <div class="artist-stat-num">18+</div>
+              <div class="artist-stat-label">อัลบั้ม</div>
+            </div>
+            <div class="artist-stat-item">
+              <div class="artist-stat-num">60+</div>
+              <div class="artist-stat-label">รายการ</div>
+            </div>
+            <div class="artist-stat-item" style="margin-left:auto">
+              <a href="products.html" class="artist-link">ดูอัลบั้ม →</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- NewJeans -->
+      <div class="artist-card">
+        <div class="artist-banner banner-nj">
+          <div class="artist-avatar avatar-nj">NJ</div>
+        </div>
+        <div class="artist-body">
+          <div class="artist-name" style="color:#34d399">NewJeans</div>
+          <div class="artist-label">ADOR · 2022</div>
+          <div class="artist-tags">
+            <span class="artist-tag">K-POP</span>
+            <span class="artist-tag">4th Gen</span>
+            <span class="artist-tag">5 Members</span>
+          </div>
+          <div class="artist-stats">
+            <div class="artist-stat-item">
+              <div class="artist-stat-num">8+</div>
+              <div class="artist-stat-label">อัลบั้ม</div>
+            </div>
+            <div class="artist-stat-item">
+              <div class="artist-stat-num">30+</div>
+              <div class="artist-stat-label">รายการ</div>
+            </div>
+            <div class="artist-stat-item" style="margin-left:auto">
+              <a href="products.html" class="artist-link">ดูอัลบั้ม →</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- aespa -->
+      <div class="artist-card">
+        <div class="artist-banner banner-aespa">
+          <div class="artist-avatar avatar-aespa">æ</div>
+        </div>
+        <div class="artist-body">
+          <div class="artist-name" style="color:#e879f9">aespa</div>
+          <div class="artist-label">SM ENTERTAINMENT · 2020</div>
+          <div class="artist-tags">
+            <span class="artist-tag">K-POP</span>
+            <span class="artist-tag">4th Gen</span>
+            <span class="artist-tag">4 Members</span>
+          </div>
+          <div class="artist-stats">
+            <div class="artist-stat-item">
+              <div class="artist-stat-num">12+</div>
+              <div class="artist-stat-label">อัลบั้ม</div>
+            </div>
+            <div class="artist-stat-item">
+              <div class="artist-stat-num">42+</div>
+              <div class="artist-stat-label">รายการ</div>
+            </div>
+            <div class="artist-stat-item" style="margin-left:auto">
+              <a href="products.html" class="artist-link">ดูอัลบั้ม →</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- LE SSERAFIM -->
+      <div class="artist-card">
+        <div class="artist-banner banner-lsf">
+          <div class="artist-avatar avatar-lsf">JH</div>
+        </div>
+        <div class="artist-body">
+          <div class="artist-name" style="color:#fbbf24">JAEHYUN</div>
+          <div class="artist-label">SOURCE MUSIC · 2025</div>
+          <div class="artist-tags">
+            <span class="artist-tag">K-POP</span>
+            <span class="artist-tag">1997</span>
+            <span class="artist-tag">1 Members</span>
+          </div>
+          <div class="artist-stats">
+            <div class="artist-stat-item">
+              <div class="artist-stat-num">6+</div>
+              <div class="artist-stat-label">อัลบั้ม</div>
+            </div>
+            <div class="artist-stat-item">
+              <div class="artist-stat-num">22+</div>
+              <div class="artist-stat-label">รายการ</div>
+            </div>
+            <div class="artist-stat-item" style="margin-left:auto">
+              <a href="products.html" class="artist-link">ดูอัลบั้ม →</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SEVENTEEN -->
+      <div class="artist-card">
+        <div class="artist-banner banner-svt">
+          <div class="artist-avatar avatar-svt">SVT</div>
+        </div>
+        <div class="artist-body">
+          <div class="artist-name" style="color:#38bdf8">SEVENTEEN</div>
+          <div class="artist-label">PLEDIS ENTERTAINMENT · 2015</div>
+          <div class="artist-tags">
+            <span class="artist-tag">K-POP</span>
+            <span class="artist-tag">3rd Gen</span>
+            <span class="artist-tag">13 Members</span>
+          </div>
+          <div class="artist-stats">
+            <div class="artist-stat-item">
+              <div class="artist-stat-num">30+</div>
+              <div class="artist-stat-label">อัลบั้ม</div>
+            </div>
+            <div class="artist-stat-item">
+              <div class="artist-stat-num">90+</div>
+              <div class="artist-stat-label">รายการ</div>
+            </div>
+            <div class="artist-stat-item" style="margin-left:auto">
+              <a href="products.html" class="artist-link">ดูอัลบั้ม →</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="brand">Jemilyyy</div>
+        <p>ร้านอัลบั้มเกาหลีคุณภาพแท้<br>นำเข้าตรงจากเกาหลี ครบทุกศิลปิน</p>
+      </div>
+      <div class="footer-col">
+        <h4>เมนู</h4>
+        <ul>
+          <li><a href="index.html">หน้าแรก</a></li>
+          <li><a href="products.html">สินค้า</a></li>
+          <li><a href="artists.html">ศิลปิน</a></li>
+          <li><a href="contact.html">ติดต่อ</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>ศิลปิน</h4>
+        <ul>
+          <li><a href="artists.html">BTS</a></li>
+          <li><a href="artists.html">BLACKPINK</a></li>
+          <li><a href="artists.html">NewJeans</a></li>
+          <li><a href="artists.html">aespa</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>ติดต่อ</h4>
+        <ul>
+          <li><a href="#">Line: @Jemilyyy</a></li>
+          <li><a href="#">Instagram</a></li>
+          <li><a href="contact.html">ส่งข้อความ</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 Jemilyyy K-Pop Album Shop · All rights reserved</p>
+    </div>
+  </footer>
+
+</body>
+</html>
