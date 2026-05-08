@@ -1,82 +1,447 @@
+```html
 <!DOCTYPE html>
 <html lang="th">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Jemilyyy – สินค้า</title>
-  <link rel="stylesheet" href="src/style.css" />
+
+  <link rel="stylesheet" href="style.css"/>
+
   <style>
-    .page-hero {
-      padding: 120px 80px 60px;
+
+    .page-hero{
+      padding:120px 80px 60px;
+      text-align:center;
       background:
         radial-gradient(ellipse 60% 80% at 50% 0%, rgba(90,30,120,0.3) 0%, transparent 60%),
         var(--bg-deep);
-      text-align: center;
     }
 
-    .page-hero h1 {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 3.5rem;
-      letter-spacing: 5px;
-      background: var(--accent-gradient);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
+    .page-hero h1{
+      font-family:'Bebas Neue',sans-serif;
+      font-size:3.5rem;
+      letter-spacing:5px;
+      background:var(--accent-gradient);
+      -webkit-background-clip:text;
+      -webkit-text-fill-color:transparent;
     }
 
-    .page-hero p {
-      color: var(--text-muted);
-      margin-top: 12px;
+    .page-hero p{
+      color:var(--text-muted);
+      margin-top:12px;
     }
 
-    .filter-bar {
-      padding: 32px 80px;
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      flex-wrap: wrap;
-      border-bottom: 1px solid var(--border);
-      background: var(--bg-surface);
+    .products-main{
+      padding:60px 80px 100px;
     }
 
-    .filter-label {
-      font-family: 'Rajdhani', sans-serif;
-      font-size: 0.8rem;
-      letter-spacing: 2px;
-      color: var(--text-muted);
-      font-weight: 700;
-      text-transform: uppercase;
+    .products-grid{
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:24px;
     }
 
-    .filter-chips {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
+    .add-btn{
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      width:100%;
+      margin-top:12px;
+      padding:10px;
+      border-radius:10px;
+      border:none;
+      cursor:pointer;
+      font-weight:600;
+      background:linear-gradient(135deg,#ff4d8d,#a855f7);
+      color:white;
     }
 
-    .filter-chip {
-      padding: 8px 18px;
-      border-radius: 50px;
-      font-size: 0.85rem;
-      font-weight: 500;
-      cursor: pointer;
-      border: 1px solid var(--border);
-      background: transparent;
-      color: var(--text-muted);
-      font-family: 'Noto Sans Thai', sans-serif;
-      transition: all 0.2s;
+    /* ================= MODAL ================= */
+
+    .product-modal{
+      position:fixed;
+      inset:0;
+      z-index:9999;
+
+      opacity:0;
+      pointer-events:none;
+      transition:.3s;
     }
 
-    .filter-chip:hover,
-    .filter-chip.active {
-      background: rgba(168,85,247,0.15);
-      border-color: var(--accent-purple);
-      color: var(--text-primary);
+    .product-modal.show{
+      opacity:1;
+      pointer-events:auto;
     }
 
-    .filter-chip.active {
-      background: linear-gradient(135deg, rgba(255,77,141,0.2), rgba(168,85,247,0.2));
-      border-color: var(--accent-pink);
-      color: var(--accent-pink);
+    .modal-overlay{
+      position:absolute;
+      inset:0;
+      background:rgba(0,0,0,.75);
+      backdrop-filter:blur(5px);
     }
+
+    .modal-content{
+      position:relative;
+      width:min(900px,92%);
+      margin:50px auto;
+      border-radius:24px;
+      overflow:hidden;
+
+      background:var(--bg-card);
+      border:1px solid var(--border);
+
+      transform:translateY(30px);
+      transition:.3s;
+      z-index:2;
+    }
+
+    .product-modal.show .modal-content{
+      transform:translateY(0);
+    }
+
+    .modal-close{
+      position:absolute;
+      top:16px;
+      right:16px;
+
+      width:42px;
+      height:42px;
+
+      border:none;
+      border-radius:50%;
+
+      cursor:pointer;
+
+      background:rgba(255,255,255,.1);
+      color:white;
+      font-size:1.5rem;
+      z-index:10;
+    }
+
+    .modal-grid{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+    }
+
+    .modal-image-wrap{
+      min-height:520px;
+      background:#1a1630;
+    }
+
+    .modal-image-wrap img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+    }
+
+    .modal-info{
+      padding:50px;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+    }
+
+    .modal-tag{
+      color:var(--accent-pink);
+      font-family:'Rajdhani',sans-serif;
+      letter-spacing:2px;
+      font-weight:700;
+      margin-bottom:14px;
+    }
+
+    .modal-info h2{
+      font-size:2rem;
+      line-height:1.2;
+      margin-bottom:18px;
+    }
+
+    .modal-price{
+      font-size:2rem;
+      font-weight:700;
+      margin-bottom:20px;
+
+      background:var(--accent-gradient);
+      -webkit-background-clip:text;
+      -webkit-text-fill-color:transparent;
+    }
+
+    .modal-desc{
+      color:var(--text-muted);
+      line-height:1.8;
+      margin-bottom:30px;
+    }
+
+    .modal-actions{
+      display:flex;
+      gap:14px;
+      flex-wrap:wrap;
+    }
+
+    @media(max-width:1024px){
+      .products-grid{
+        grid-template-columns:repeat(2,1fr);
+      }
+    }
+
+    @media(max-width:768px){
+
+      .page-hero{
+        padding:170px 24px 40px;
+      }
+
+      .products-main{
+        padding:40px 20px 80px;
+      }
+
+      .products-grid{
+        grid-template-columns:1fr;
+      }
+
+      .modal-grid{
+        grid-template-columns:1fr;
+      }
+
+      .modal-image-wrap{
+        min-height:320px;
+      }
+
+      .modal-info{
+        padding:30px 24px;
+      }
+
+      .modal-info h2{
+        font-size:1.5rem;
+      }
+
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav>
+    <a href="index.html" class="nav-logo">
+      <span class="brand">Jemilyyy</span>
+      <span class="sub">K-POP ALBUM SHOP</span>
+    </a>
+
+    <ul class="nav-links">
+      <li><a href="index.html">หน้าแรก</a></li>
+      <li><a href="products.html" class="active">สินค้า</a></li>
+      <li><a href="#">ศิลปิน</a></li>
+      <li><a href="#">ติดต่อ</a></li>
+    </ul>
+
+    <div class="nav-cart">
+      🛒
+      <span class="cart-badge">0</span>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <div class="page-hero">
+    <h1>สินค้าทั้งหมด</h1>
+    <p>อัลบั้มเกาหลีแท้ นำเข้าตรง ครบทุกศิลปิน</p>
+  </div>
+
+  <!-- PRODUCTS -->
+  <div class="products-main">
+
+    <div class="products-grid">
+
+      <!-- CARD -->
+      <div class="album-card">
+
+        <div class="card-img">
+          <img src="BTS.jpg" class="album-image">
+        </div>
+
+        <div class="card-body">
+          <div class="card-artist">BTS</div>
+          <div class="card-title">Map of the Soul : 7</div>
+          <div class="card-price">฿ 990</div>
+
+          <button class="add-btn">
+            + เพิ่มในตะกร้า
+          </button>
+        </div>
+
+      </div>
+
+      <!-- CARD -->
+      <div class="album-card">
+
+        <div class="card-img">
+          <img src="blackpink.jpg" class="album-image">
+        </div>
+
+        <div class="card-body">
+          <div class="card-artist">BLACKPINK</div>
+          <div class="card-title">BORN PINK</div>
+          <div class="card-price">฿ 950</div>
+
+          <button class="add-btn">
+            + เพิ่มในตะกร้า
+          </button>
+        </div>
+
+      </div>
+
+      <!-- CARD -->
+      <div class="album-card">
+
+        <div class="card-img">
+          <img src="newj.jpg" class="album-image">
+        </div>
+
+        <div class="card-body">
+          <div class="card-artist">NewJeans</div>
+          <div class="card-title">Get Up</div>
+          <div class="card-price">฿ 820</div>
+
+          <button class="add-btn">
+            + เพิ่มในตะกร้า
+          </button>
+        </div>
+
+      </div>
+
+      <!-- CARD -->
+      <div class="album-card">
+
+        <div class="card-img">
+          <img src="as.jpg" class="album-image">
+        </div>
+
+        <div class="card-body">
+          <div class="card-artist">aespa</div>
+          <div class="card-title">MY WORLD</div>
+          <div class="card-price">฿ 880</div>
+
+          <button class="add-btn">
+            + เพิ่มในตะกร้า
+          </button>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- MODAL -->
+  <div class="product-modal" id="productModal">
+
+    <div class="modal-overlay"></div>
+
+    <div class="modal-content">
+
+      <button class="modal-close" id="closeModal">
+        &times;
+      </button>
+
+      <div class="modal-grid">
+
+        <div class="modal-image-wrap">
+          <img id="modalImage" src="" alt="">
+        </div>
+
+        <div class="modal-info">
+
+          <span class="modal-tag" id="modalArtist">
+            Artist
+          </span>
+
+          <h2 id="modalTitle">
+            Album Name
+          </h2>
+
+          <div class="modal-price" id="modalPrice">
+            ฿ 990
+          </div>
+
+          <p class="modal-desc">
+            อัลบั้มแท้นำเข้าจากเกาหลี พร้อมของแถม Official Photocard และ Poster
+          </p>
+
+          <div class="modal-actions">
+
+            <button class="btn-primary">
+              + เพิ่มลงตะกร้า
+            </button>
+
+            <button class="btn-outline">
+              ♡ รายการโปรด
+            </button>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- SCRIPT -->
+  <script>
+
+    const modal = document.getElementById("productModal");
+    const closeModal = document.getElementById("closeModal");
+
+    const modalImage = document.getElementById("modalImage");
+    const modalArtist = document.getElementById("modalArtist");
+    const modalTitle = document.getElementById("modalTitle");
+    const modalPrice = document.getElementById("modalPrice");
+
+    document.querySelectorAll(".album-card").forEach(card => {
+
+      card.addEventListener("click", () => {
+
+        const image =
+          card.querySelector(".album-image").src;
+
+        const artist =
+          card.querySelector(".card-artist").innerText;
+
+        const title =
+          card.querySelector(".card-title").innerText;
+
+        const price =
+          card.querySelector(".card-price").innerText;
+
+        modalImage.src = image;
+        modalArtist.innerText = artist;
+        modalTitle.innerText = title;
+        modalPrice.innerText = price;
+
+        modal.classList.add("show");
+
+        document.body.style.overflow = "hidden";
+
+      });
+
+    });
+
+    closeModal.addEventListener("click", closeProductModal);
+
+    document
+      .querySelector(".modal-overlay")
+      .addEventListener("click", closeProductModal);
+
+    function closeProductModal(){
+
+      modal.classList.remove("show");
+
+      document.body.style.overflow = "auto";
+
+    }
+
+  </script>
+
+</body>
 </html>
+```
