@@ -409,6 +409,9 @@ footer {
 
 /* ===== MOBILE ===== */
 @media (max-width: 768px) {
+
+  section[style] { padding: 0 24px 60px !important; }
+
    nav{
     flex-direction: column;
     height: auto;
