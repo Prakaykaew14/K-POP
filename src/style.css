@@ -429,3 +429,155 @@ footer {
   height: 100%;
   object-fit: cover;
 }
+
+/* =========================
+   MOBILE & TABLET FIX
+========================= */
+
+html, body{
+  overflow-x: hidden;
+}
+
+img{
+  max-width: 100%;
+  display: block;
+}
+
+/* ---------- MOBILE ---------- */
+@media (max-width: 768px){
+
+  nav{
+    padding: 14px 16px;
+    flex-wrap: wrap;
+    gap: 12px;
+    height: auto;
+  }
+
+  .nav-links{
+    width: 100%;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 14px;
+  }
+
+  .hero{
+    flex-direction: column;
+    padding: 110px 20px 50px;
+    text-align: center;
+    gap: 40px;
+  }
+
+  .hero-content{
+    max-width: 100%;
+  }
+
+  .hero-title{
+    font-size: 3rem;
+    line-height: 1.1;
+  }
+
+  .hero-desc{
+    font-size: 0.95rem;
+  }
+
+  .hero-btns{
+    justify-content: center;
+  }
+
+  .hero-visual{
+    width: 260px;
+    height: 260px;
+    flex: none;
+  }
+
+  .hero-album-main{
+    width: 200px;
+    padding: 18px;
+  }
+
+  .hero-album-behind{
+    width: 180px;
+  }
+
+  .featured-section,
+  .artists-section{
+    padding: 60px 20px;
+  }
+
+  .products-grid{
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .artists-grid{
+    grid-template-columns: repeat(2,1fr);
+  }
+
+  .stats-bar{
+    flex-direction: column;
+  }
+
+  .stat-item{
+    border-right: none;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .cta-banner{
+    margin: 0 20px 60px;
+    padding: 30px 20px;
+    flex-direction: column;
+    text-align: center;
+    gap: 20px;
+  }
+
+  .cta-text h2{
+    font-size: 2rem;
+  }
+
+  footer{
+    padding: 40px 20px 24px;
+  }
+
+  .footer-grid{
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+
+  .footer-bottom{
+    flex-direction: column;
+    gap: 10px;
+    text-align: center;
+  }
+
+}
+
+/* ---------- TABLET ---------- */
+@media (min-width: 769px) and (max-width: 1024px){
+
+  .hero{
+    padding: 100px 40px 60px;
+    gap: 40px;
+  }
+
+  .hero-title{
+    font-size: 4.5rem;
+  }
+
+  .products-grid{
+    grid-template-columns: repeat(2,1fr);
+  }
+
+  .artists-grid{
+    grid-template-columns: repeat(3,1fr);
+  }
+
+  .featured-section,
+  .artists-section{
+    padding: 80px 40px;
+  }
+
+  .cta-banner{
+    margin: 0 40px 80px;
+  }
+
+}
